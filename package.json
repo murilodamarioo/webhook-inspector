@@ -1,0 +1,8 @@
+{
+  "name": "webhook-inspector",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "packages/*"
+  ]
+}
