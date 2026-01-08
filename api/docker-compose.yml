@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:17
+    container_name: webhooks_db
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
