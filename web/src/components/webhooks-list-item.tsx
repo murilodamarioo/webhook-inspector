@@ -1,7 +1,7 @@
-import { Link } from "@tanstack/react-router";
-import { IconButton } from "./ui/icon-button";
-import { Trash2Icon } from "lucide-react";
-import { Checkbox } from "./ui/checkbox";
+import { Link } from '@tanstack/react-router'
+import { IconButton } from './ui/icon-button'
+import { Trash2Icon } from 'lucide-react'
+import { Checkbox } from './ui/checkbox'
 
 export function WebhooksListItem() {
   return (
@@ -10,7 +10,9 @@ export function WebhooksListItem() {
         <Checkbox />
 
         <Link to="/" className="flex flex-1 min-w-0 items-start gap-3">
-          <span className="w-12 shrink-0 font-mono text-xs font-semibold text-zinc-300 text-right">POST</span>
+          <span className="w-12 shrink-0 font-mono text-xs font-semibold text-zinc-300 text-right">
+            POST
+          </span>
           <div className="flex-1 min-w-0">
             <p className="truncate text-xs text-zinc-200 leading-tight font-mono">
               /video/status

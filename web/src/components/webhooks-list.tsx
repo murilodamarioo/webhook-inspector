@@ -1,4 +1,4 @@
-import { WebhooksListItem } from "./webhooks-list-item";
+import { WebhooksListItem } from './webhooks-list-item'
 
 export function WebhooksList() {
   return (
