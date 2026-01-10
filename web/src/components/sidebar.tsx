@@ -1,5 +1,5 @@
-import { CopyIcon } from "lucide-react";
-import { IconButton } from "./ui/icon-button";
+import { CopyIcon } from 'lucide-react'
+import { IconButton } from './ui/icon-button'
 
 export function Sidebar() {
   return (
@@ -15,9 +15,7 @@ export function Sidebar() {
         <div className="flex-1 min-w-0 flex items-center text-xs font-mono text-zinc-300">
           <span className="truncate">http://localhost:3000/api/capture</span>
         </div>
-        <IconButton
-          icon={<CopyIcon className="size-4" />}
-        />
+        <IconButton icon={<CopyIcon className="size-4" />} />
       </div>
     </div>
   )
