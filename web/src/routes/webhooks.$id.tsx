@@ -20,7 +20,7 @@ function RouteComponent() {
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <WebhookDetails id={id}/>
+      <WebhookDetails id={id} />
     </Suspense>
   )
 }

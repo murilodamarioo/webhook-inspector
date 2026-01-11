@@ -35,9 +35,11 @@ export function WebhookDetails({ id }: WebhookDetailsProps) {
     return { key, value: String(value) }
   })
 
-  const queryParameters = Object.entries(data.queryParams || {}).map(([key, value]) => {
-    return { key, value: String(value) }
-  })
+  const queryParameters = Object.entries(data.queryParams || {}).map(
+    ([key, value]) => {
+      return { key, value: String(value) }
+    },
+  )
 
   return (
     <div className="flex h-full flex-col">
