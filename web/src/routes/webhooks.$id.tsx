@@ -9,7 +9,6 @@ import { WebhookDetailHeader } from '../components/webhook-detail-header'
 
 import { webhookDetailsSchema } from '../http/schemas/webhooks'
 
-
 export const Route = createFileRoute('/webhooks/$id')({
   component: RouteComponent,
 })
@@ -24,7 +23,7 @@ function RouteComponent() {
       const data = await response.json()
 
       return webhookDetailsSchema.parse(data)
-    }
+    },
   })
 
   const overviewData = [

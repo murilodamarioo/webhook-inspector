@@ -10,13 +10,13 @@ export function WebhooksList() {
       const data = await response.json()
 
       return webhookListSchema.parse(data)
-    }
+    },
   })
 
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="space-y-1 p2">
-        {data.webhooks.map(webhook => {
+        {data.webhooks.map((webhook) => {
           return <WebhooksListItem key={webhook.id} webhook={webhook} />
         })}
       </div>

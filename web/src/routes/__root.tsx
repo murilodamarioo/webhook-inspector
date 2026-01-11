@@ -9,8 +9,6 @@ const queryClient = new QueryClient()
 
 const RootLayout = () => (
   <QueryClientProvider client={queryClient}>
-
-
     <div className="h-screen bg-zinc-900">
       <PanelGroup direction="horizontal">
         <Panel defaultSize={20} minSize={15} maxSize={40}>
