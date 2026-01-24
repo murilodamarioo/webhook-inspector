@@ -9,6 +9,7 @@ export function WebhooksList() {
   const observerRef = useRef<IntersectionObserver>(null)
 
   const [checkedWebhooksIds, setCheckedWebhooksIds] = useState<string[]>([])
+  const [generatedHandlerCode, setGeneratedHandlerCode] = useState<string | null>(null)
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery({
@@ -62,14 +63,32 @@ export function WebhooksList() {
     }
   }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
-  function handleCheckWebhook(webhookId: string) {
-    if (checkedWebhooksIds.includes(webhookId)) {
+  function handleCheckWebhook(checkedWebhookId: string) {
+    if (checkedWebhooksIds.includes(checkedWebhookId)) {
       setCheckedWebhooksIds(state => {
-        return state.filter(webhookId => webhookId !== webhookId)
+        return state.filter(webhookId => webhookId !== checkedWebhookId)
       })
     } else {
-      setCheckedWebhooksIds(state => [...state, webhookId])
+      setCheckedWebhooksIds(state => [...state, checkedWebhookId])
     }
+  }
+
+  async function handleGenerateHandler() {
+    const response = await fetch('http://localhost:3333/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        webhookIds: checkedWebhooksIds
+      })
+    })
+
+    type GenerateResponse = { code: string }
+
+    const data: GenerateResponse = await response.json()
+
+    console.log(data.code)
   }
 
   const hasAnyWebhookChecked = checkedWebhooksIds.length > 0
@@ -81,6 +100,7 @@ export function WebhooksList() {
           <button
             disabled={!hasAnyWebhookChecked}
             className="bg-indigo-400 mb-3 text-white w-full rounded-lg flex items-center justify-center gap-3 font-medium text-sm py-2 disabled:opacity-50"
+            onClick={() => handleGenerateHandler()}
           >
             <Wand2 className="size-4" />
             Gerar handler
