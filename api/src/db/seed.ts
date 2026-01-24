@@ -1,4 +1,3 @@
-
 import { db } from './index'
 import { webhooks } from './schema'
 import { faker } from '@faker-js/faker'
@@ -35,25 +34,36 @@ function randomPathname(event: string) {
 }
 
 function randomBody(event: string) {
-  return JSON.stringify({
-    id: faker.string.uuid(),
-    object: 'event',
-    type: event,
-    data: {
-      object: {
-        id: faker.string.uuid(),
-        amount: faker.number.int({ min: 100, max: 100000 }),
-        currency: 'usd',
-        status: faker.helpers.arrayElement(['succeeded', 'failed', 'pending']),
-        customer: faker.string.uuid(),
-        created: faker.date.past().getTime() / 1000,
+  return JSON.stringify(
+    {
+      id: faker.string.uuid(),
+      object: 'event',
+      type: event,
+      data: {
+        object: {
+          id: faker.string.uuid(),
+          amount: faker.number.int({ min: 100, max: 100000 }),
+          currency: 'usd',
+          status: faker.helpers.arrayElement([
+            'succeeded',
+            'failed',
+            'pending',
+          ]),
+          customer: faker.string.uuid(),
+          created: faker.date.past().getTime() / 1000,
+        },
       },
+      livemode: false,
+      pending_webhooks: 1,
+      request: {
+        id: faker.string.uuid(),
+        idempotency_key: faker.string.uuid(),
+      },
+      api_version: '2024-01-01',
     },
-    livemode: false,
-    pending_webhooks: 1,
-    request: { id: faker.string.uuid(), idempotency_key: faker.string.uuid() },
-    api_version: '2024-01-01',
-  }, null, 2)
+    null,
+    2,
+  )
 }
 
 function randomHeaders() {

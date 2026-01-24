@@ -9,7 +9,9 @@ export function WebhooksList() {
   const observerRef = useRef<IntersectionObserver>(null)
 
   const [checkedWebhooksIds, setCheckedWebhooksIds] = useState<string[]>([])
-  const [generatedHandlerCode, setGeneratedHandlerCode] = useState<string | null>(null)
+  const [generatedHandlerCode, setGeneratedHandlerCode] = useState<
+    string | null
+  >(null)
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery({
@@ -65,11 +67,11 @@ export function WebhooksList() {
 
   function handleCheckWebhook(checkedWebhookId: string) {
     if (checkedWebhooksIds.includes(checkedWebhookId)) {
-      setCheckedWebhooksIds(state => {
-        return state.filter(webhookId => webhookId !== checkedWebhookId)
+      setCheckedWebhooksIds((state) => {
+        return state.filter((webhookId) => webhookId !== checkedWebhookId)
       })
     } else {
-      setCheckedWebhooksIds(state => [...state, checkedWebhookId])
+      setCheckedWebhooksIds((state) => [...state, checkedWebhookId])
     }
   }
 
@@ -77,11 +79,11 @@ export function WebhooksList() {
     const response = await fetch('http://localhost:3333/api/generate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        webhookIds: checkedWebhooksIds
-      })
+        webhookIds: checkedWebhooksIds,
+      }),
     })
 
     type GenerateResponse = { code: string }
@@ -94,7 +96,7 @@ export function WebhooksList() {
   const hasAnyWebhookChecked = checkedWebhooksIds.length > 0
 
   return (
-        <>
+    <>
       <div className="flex-1 overflow-y-auto">
         <div className="space-y-1 p-2">
           <button
