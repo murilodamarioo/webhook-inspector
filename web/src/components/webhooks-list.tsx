@@ -1,8 +1,14 @@
+import { useEffect, useRef, useState } from 'react'
+
 import { Loader2, Wand2 } from 'lucide-react'
+
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
+import * as Dialog from '@radix-ui/react-dialog'
+
 import { webhookListSchema } from '../http/schemas/webhooks'
 import { WebhooksListItem } from './webhooks-list-item'
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
+import { CodeBlock } from './ui/code-block'
+
 
 export function WebhooksList() {
   const loadMoreRef = useRef<HTMLDivElement>(null)
@@ -90,7 +96,7 @@ export function WebhooksList() {
 
     const data: GenerateResponse = await response.json()
 
-    console.log(data.code)
+    setGeneratedHandlerCode(data.code)
   }
 
   const hasAnyWebhookChecked = checkedWebhooksIds.length > 0
@@ -130,6 +136,18 @@ export function WebhooksList() {
           </div>
         )}
       </div>
+
+      {!!generatedHandlerCode && (
+        <Dialog.Root defaultOpen>
+          <Dialog.Overlay className="bg-black/60 inset-0 fixed z-20" />
+
+          <Dialog.Content className="flex items-center justify-center fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] -translate-x-1/2 -translate-y-1/2 z-40">
+            <div className="bg-zinc-900 w-150 p-4 rounded-lg border border-zinc-800 max-h-155 overflow-y-auto">
+              <CodeBlock language="typescript" code={generatedHandlerCode} />
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
+      )}
     </>
   )
 }
